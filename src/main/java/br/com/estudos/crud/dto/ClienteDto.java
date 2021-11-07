@@ -1,17 +1,17 @@
 package br.com.estudos.crud.dto;
 
-import br.com.estudos.crud.model.Usuario;
+import br.com.estudos.crud.model.Cliente;
 import lombok.Data;
 
 @Data
-public class UsuarioDto {
+public class ClienteDto {
 
     private Long id;
     private String nome;
     private String endereco;
 
-    public Usuario transformaParaObjeto(){
-        return new Usuario(id, nome, endereco);
+    public Cliente transformaParaObjeto() {
+        return new Cliente(id, nome, endereco);
     }
 
 
@@ -19,7 +19,7 @@ public class UsuarioDto {
         return id;
     }
 
-    public UsuarioDto setId(Long id) {
+    public ClienteDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -28,7 +28,7 @@ public class UsuarioDto {
         return nome;
     }
 
-    public UsuarioDto setNome(String nome) {
+    public ClienteDto setNome(String nome) {
         this.nome = nome;
         return this;
     }
@@ -37,7 +37,7 @@ public class UsuarioDto {
         return endereco;
     }
 
-    public UsuarioDto setEndereco(String endereco) {
+    public ClienteDto setEndereco(String endereco) {
         this.endereco = endereco;
         return this;
     }

@@ -1,7 +1,7 @@
 package br.com.estudos.crud.service;
 
-import br.com.estudos.crud.model.Usuario;
-import br.com.estudos.crud.repository.UsuarioRepository;
+import br.com.estudos.crud.model.Cliente;
+import br.com.estudos.crud.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,28 +13,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class CadastroClienteService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    ClienteRepository clienteRepository;
 
-    public List<Usuario> listar(){
-        return usuarioRepository.findAll();
+    public List<Cliente> listar() {
+        return clienteRepository.findAll();
     }
 
-    public Optional<Usuario> buscar(@PathVariable Long id){
-        return usuarioRepository.findById(id);
+    public Optional<Cliente> buscar(@PathVariable Long id) {
+        return clienteRepository.findById(id);
     }
 
-    public Usuario cadastrar(@RequestBody Usuario usuario){
-         usuarioRepository.save(usuario);
-         return usuario;
+    public Cliente cadastrar(@RequestBody Cliente cliente) {
+        clienteRepository.save(cliente);
+        return cliente;
     }
 
-    public void alterar(@RequestBody Usuario imput, @PathVariable Long id){
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        if (usuario.isPresent()){
-            Usuario entity = usuario.get();
+    public void alterar(@RequestBody Cliente imput, @PathVariable Long id) {
+        Optional<Cliente> usuario = clienteRepository.findById(id);
+        if (usuario.isPresent()) {
+            Cliente entity = usuario.get();
 
             entity.setId(imput.getId());
             entity.setNome(imput.getNome());
@@ -42,7 +42,7 @@ public class UsuarioService {
             entity.setCpf(imput.getCpf());
             entity.setDataNascimento(imput.getDataNascimento());
 
-            usuarioRepository.save(entity);
+            clienteRepository.save(entity);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não existe no banco");
         }
@@ -50,7 +50,7 @@ public class UsuarioService {
     }
 
     public void deletar(@PathVariable Long id){
-        usuarioRepository.deleteById(id);
+        clienteRepository.deleteById(id);
     }
 
 }
