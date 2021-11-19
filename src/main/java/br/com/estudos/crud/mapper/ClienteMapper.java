@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ClienteMapper {
 
-    public List<ClienteDto> getUsuariosDtoByForEachNormal(List<Cliente> clienteList) {
+    public List<ClienteDto> map(List<Cliente> clienteList) {
 
         List<ClienteDto> clienteDto = new ArrayList<>();
 

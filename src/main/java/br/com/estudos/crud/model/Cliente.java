@@ -1,17 +1,20 @@
 package br.com.estudos.crud.model;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
 
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Cliente {
 
@@ -25,15 +28,6 @@ public class Cliente {
     private String cpf;
     @ApiModelProperty(value = "Endereço do cliente")
     private String endereco;
-    @ApiModelProperty(value = "Data de nascimento do cliente")
-    private Date dataNascimento;
-
-    public Cliente(Long id, String nome, String endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.dataNascimento = dataNascimento;
-    }
 
 
 }

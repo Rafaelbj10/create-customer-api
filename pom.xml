@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cadastro-clientes</groupId>
-    <artifactId>Cadastro de Clientes</artifactId>
+    <artifactId>Cadastro de Cliente</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Cadastro de Clientes</name>
     <description>Demo project for Spring Boot</description>
