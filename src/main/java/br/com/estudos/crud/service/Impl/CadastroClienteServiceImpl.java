@@ -16,5 +16,9 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
         clienteRepository.insertClient(cliente);
     }
 
+    @Override
+    public Cliente buscar(final String cpf) {
+        return clienteRepository.buscar(cpf);
+    }
 
 }

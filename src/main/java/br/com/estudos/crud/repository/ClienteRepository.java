@@ -6,5 +6,7 @@ public interface ClienteRepository {
 
     void insertClient(Cliente cliente);
 
+    Cliente buscar(String cpf);
+
 }
 

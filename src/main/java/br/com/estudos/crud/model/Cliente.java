@@ -1,5 +1,6 @@
 package br.com.estudos.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Cliente {
     @ApiModelProperty(value = "Código do cliente")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     @ApiModelProperty(value = "Nome do cliente")
     private String nome;
