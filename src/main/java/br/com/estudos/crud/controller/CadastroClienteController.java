@@ -1,7 +1,8 @@
 package br.com.estudos.crud.controller;
 
-import br.com.estudos.crud.dto.ClienteDto;
-import br.com.estudos.crud.model.Cliente;
+import br.com.estudos.crud.parameters.ClienteRequest;
+import br.com.estudos.crud.presenters.cliente.ClienteDto;
+import br.com.estudos.crud.presenters.cliente.ClienteResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,8 +10,10 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags = "clientes")
-@RequestMapping(value = "/cadastro-cliente", produces = "application/json")
+@RequestMapping(value = "/cliente", produces = "application/json")
 public interface CadastroClienteController {
 
     @ApiOperation(value = "Cadastra cliente")
@@ -20,7 +23,7 @@ public interface CadastroClienteController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @PostMapping
-    ResponseEntity<ClienteDto> cadastrar(@RequestBody Cliente cliente);
+    ResponseEntity<ClienteResponse> cadastrar(@RequestBody ClienteRequest request);
 
 
     @ApiOperation(value = "Buscar cliente por CPF")
@@ -30,7 +33,17 @@ public interface CadastroClienteController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @GetMapping(value = "/{cpf}", produces = "application/json")
-    ResponseEntity<Cliente> buscar(@PathVariable String cpf);
+    ResponseEntity<ClienteDto> findByCpf(@PathVariable String cpf);
+
+
+    @ApiOperation(value = "Buscar todos os cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna todos os clientes"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @GetMapping(produces = "application/json")
+    List<ClienteDto> findAll();
 
 
 }

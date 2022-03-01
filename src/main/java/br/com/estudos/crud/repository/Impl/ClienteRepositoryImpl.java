@@ -1,14 +1,17 @@
 package br.com.estudos.crud.repository.Impl;
 
-import br.com.estudos.crud.model.Cliente;
+import br.com.estudos.crud.parameters.ClienteRequest;
+import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import static br.com.estudos.crud.utils.queries.ClienteQuery.BUSCAR_POR_ID;
-import static br.com.estudos.crud.utils.queries.ClienteQuery.INSERT_CLIENT;
+import java.util.List;
+
+import static br.com.estudos.crud.utils.queries.ClienteQuery.*;
 
 @RequiredArgsConstructor
 @Repository
@@ -16,20 +19,30 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void insertClient(final Cliente cliente) {
-        jdbcTemplate.update(INSERT_CLIENT, cliente.getNome(), cliente.getCpf(), cliente.getEndereco());
+    public void insertClient(final ClienteRequest request) {
+        jdbcTemplate.update(INSERT_CLIENT, request.getNome(), request.getCpf(), request.getEndereco());
     }
 
     @Override
-    public Cliente buscar(final String cpf) {
+    public ClienteDto findByCpf(final String cpf) {
         try {
-            jdbcTemplate.queryForObject(BUSCAR_POR_ID, Cliente.class, cpf);
-        } catch (DataAccessException d) {
-            throw new DataAccessException("Erro ao buscar cliente") {
-            };
+            return jdbcTemplate.queryForObject(BUSCAR_POR_ID, new BeanPropertyRowMapper<>(ClienteDto.class), cpf);
+        } catch (EmptyResultDataAccessException e) {
+            throw new RuntimeException("Não foi possível encontrar o cliente na base.");
         }
-        return null;
+    }
+
+    public List<ClienteDto> findAll() {
+        try {
+            return jdbcTemplate.query(FIND_ALL_CLIENT, new BeanPropertyRowMapper<>(ClienteDto.class));
+        } catch (EmptyResultDataAccessException e) {
+            throw new RuntimeException("Não foi possível buscar todos os clientes no banco de dados. ");
+        }
+
     }
 
 
 }
+
+
+

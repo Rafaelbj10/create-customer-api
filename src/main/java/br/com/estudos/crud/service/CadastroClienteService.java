@@ -1,10 +1,16 @@
 package br.com.estudos.crud.service;
 
-import br.com.estudos.crud.model.Cliente;
+import br.com.estudos.crud.parameters.ClienteRequest;
+import br.com.estudos.crud.presenters.cliente.ClienteDto;
+
+import java.util.List;
 
 public interface CadastroClienteService {
 
-    void cadastrar(Cliente cliente);
+    void cadastrar(ClienteRequest request);
 
-    Cliente buscar(String cpf);
+    ClienteDto findByCpf(String cpf);
+
+    List<ClienteDto> findAll();
+
 }

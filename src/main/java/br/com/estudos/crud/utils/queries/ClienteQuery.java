@@ -18,8 +18,9 @@ public class ClienteQuery {
             "?)";
 
     public static final String BUSCAR_POR_ID =
-            "SELECT * FROM armazem.cliente WHERE CPF = " +
-                    "? ";
+            "SELECT c.* FROM armazem.cliente c WHERE CPF = ? ";
+
+    public static final String FIND_ALL_CLIENT = "SELECT * FROM armazem.cliente ";
 
 
 }

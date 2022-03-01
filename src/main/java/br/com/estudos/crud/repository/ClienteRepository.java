@@ -1,12 +1,18 @@
 package br.com.estudos.crud.repository;
 
-import br.com.estudos.crud.model.Cliente;
+import br.com.estudos.crud.parameters.ClienteRequest;
+import br.com.estudos.crud.presenters.cliente.ClienteDto;
+
+import java.util.List;
 
 public interface ClienteRepository {
 
-    void insertClient(Cliente cliente);
+    void insertClient(ClienteRequest request);
 
-    Cliente buscar(String cpf);
+    ClienteDto findByCpf(String cpf);
+
+    List<ClienteDto> findAll();
+
 
 }
 

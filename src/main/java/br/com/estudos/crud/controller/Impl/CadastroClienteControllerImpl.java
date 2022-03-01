@@ -1,13 +1,16 @@
 package br.com.estudos.crud.controller.Impl;
 
 import br.com.estudos.crud.controller.CadastroClienteController;
-import br.com.estudos.crud.dto.ClienteDto;
-import br.com.estudos.crud.model.Cliente;
+import br.com.estudos.crud.parameters.ClienteRequest;
+import br.com.estudos.crud.presenters.cliente.ClienteDto;
+import br.com.estudos.crud.presenters.cliente.ClienteResponse;
 import br.com.estudos.crud.service.CadastroClienteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,14 +18,20 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
 
     private final CadastroClienteService cadastroClienteService;
 
-    public ResponseEntity<ClienteDto> cadastrar(final Cliente cliente) {
-        cadastroClienteService.cadastrar(cliente);
+    public ResponseEntity<ClienteResponse> cadastrar(final ClienteRequest request) {
+        cadastroClienteService.cadastrar(request);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<Cliente> buscar(String cpf) {
-        cadastroClienteService.buscar(cpf);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<ClienteDto> findByCpf(String cpf) {
+        final var response = cadastroClienteService.findByCpf(cpf);
+        return ResponseEntity.ok(response);
     }
+
+    @Override
+    public List<ClienteDto> findAll() {
+        return cadastroClienteService.findAll();
+    }
+
 }
