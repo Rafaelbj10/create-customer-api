@@ -45,5 +45,14 @@ public interface CadastroClienteController {
     @GetMapping(produces = "application/json")
     List<ClienteDto> findAll();
 
+    @ApiOperation(value = "Deletar cliente por cpf")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Deleta o cliente"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @DeleteMapping(value = "/{cpf}", produces = "application/json")
+    int deleteClienteById(@PathVariable String cpf);
+
 
 }

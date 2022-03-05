@@ -34,4 +34,10 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
         return cadastroClienteService.findAll();
     }
 
+    @Override
+    public int deleteClienteById(final String cpf) {
+        return cadastroClienteService.deleteClienteById(cpf);
+    }
+
+
 }

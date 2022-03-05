@@ -29,4 +29,8 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
         return clienteRepository.findAll();
     }
 
+    public int deleteClienteById(final String cpf) {
+        return clienteRepository.deleteClientById(cpf);
+    }
+
 }

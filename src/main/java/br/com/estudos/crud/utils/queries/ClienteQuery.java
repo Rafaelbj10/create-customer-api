@@ -22,5 +22,7 @@ public class ClienteQuery {
 
     public static final String FIND_ALL_CLIENT = "SELECT * FROM armazem.cliente ";
 
+    public static final String DELETE_CLIENT_BY_ID = "DELETE FROM armazem.cliente WHERE CPF = ? ";
+
 
 }
