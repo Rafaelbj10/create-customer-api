@@ -18,7 +18,7 @@ public interface CadastroClienteController {
 
     @ApiOperation(value = "Cadastra cliente")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna o cliente cadastrado"),
+            @ApiResponse(code = 201, message = "Retorna o cliente cadastrado"),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
@@ -47,12 +47,12 @@ public interface CadastroClienteController {
 
     @ApiOperation(value = "Deletar cliente por cpf")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Deleta o cliente"),
+            @ApiResponse(code = 203, message = "Cliente deletado com sucesso"),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @DeleteMapping(value = "/{cpf}", produces = "application/json")
-    int deleteClienteById(@PathVariable String cpf);
+    ResponseEntity<Void> deleteClienteByCpf(@PathVariable String cpf);
 
 
 }

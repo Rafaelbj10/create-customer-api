@@ -13,7 +13,7 @@ public interface ClienteRepository {
 
     List<ClienteDto> findAll();
 
-    int deleteClientById(String cpf);
+    void deleteClientByCpf(String cpf);
 
 
 }

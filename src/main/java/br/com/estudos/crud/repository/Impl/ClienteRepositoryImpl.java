@@ -41,9 +41,9 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     }
 
-    public int deleteClientById(final String cpf) {
+    public void deleteClientByCpf(final String cpf) {
         try {
-            return jdbcTemplate.update(DELETE_CLIENT_BY_ID, cpf);
+            jdbcTemplate.update(DELETE_CLIENT_BY_ID, cpf);
         } catch (EmptyResultDataAccessException e) {
             throw new RuntimeException("Não foi possível deletar cliente");
         }
