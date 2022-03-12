@@ -38,7 +38,6 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new RuntimeException("Não foi possível buscar todos os clientes no banco de dados. ");
         }
-
     }
 
     public void deleteClientByCpf(final String cpf) {
