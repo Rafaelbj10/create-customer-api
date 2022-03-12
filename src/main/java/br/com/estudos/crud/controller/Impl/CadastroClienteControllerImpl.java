@@ -19,13 +19,8 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
     private final CadastroClienteService cadastroClienteService;
 
     public ResponseEntity<Void> cadastrar(final ClienteRequest request) {
-        final var result = cadastroClienteService.cadastrar(request);
-        if (result == 1){
-            return new ResponseEntity(HttpStatus.CREATED);
-        } else {
-            return null;
-        }
-
+        cadastroClienteService.cadastrar(request);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @Override
