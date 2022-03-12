@@ -1,4 +1,8 @@
 # cadastro-de-clientes
 
-roadmap
-https://coggle.it/diagram/X-dDo1Qdf7DCP2zg/t/how-to-master-java/a3c8bede6822097b7f3c6340b82eabd7986c57af4d42f11c122d5065479d5928
+Crie um container docker com image postgres rodando o comando abaixo:
+docker run --name postgres-docker -e POSTGRES_PASSWORD=root -p 15432:15432 -d postgres
+
+Certifique-se que o container esteja em execução rodando o comando:
+docker ps
+
