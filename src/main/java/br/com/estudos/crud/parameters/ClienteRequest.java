@@ -23,7 +23,7 @@ public class ClienteRequest {
     @JsonIgnore
     private Long id;
     @ApiModelProperty(value = "Nome do cliente")
-    private String nome;
+    private String name;
     @ApiModelProperty(value = "CPF do cliente")
     private String cpf;
     @ApiModelProperty(value = "Endereço do cliente")

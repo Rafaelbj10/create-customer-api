@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClienteRepository {
 
-    void insertClient(ClienteRequest request);
+    int insertClient(ClienteRequest request);
 
     ClienteDto findByCpf(String cpf);
 

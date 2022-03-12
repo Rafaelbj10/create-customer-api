@@ -23,7 +23,7 @@ public interface CadastroClienteController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @PostMapping
-    ResponseEntity<ClienteResponse> cadastrar(@RequestBody ClienteRequest request);
+    ResponseEntity<Void> cadastrar(@RequestBody ClienteRequest request);
 
 
     @ApiOperation(value = "Buscar cliente por CPF")

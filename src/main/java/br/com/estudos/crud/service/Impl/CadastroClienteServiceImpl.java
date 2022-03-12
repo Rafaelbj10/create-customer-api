@@ -15,8 +15,8 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
 
     private final ClienteRepository clienteRepository;
 
-    public void cadastrar(final ClienteRequest request) {
-        clienteRepository.insertClient(request);
+    public int cadastrar(final ClienteRequest request) {
+        return clienteRepository.insertClient(request);
     }
 
     @Override

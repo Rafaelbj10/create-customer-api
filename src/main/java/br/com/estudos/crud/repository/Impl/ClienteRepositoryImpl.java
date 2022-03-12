@@ -19,8 +19,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void insertClient(final ClienteRequest request) {
-        jdbcTemplate.update(INSERT_CLIENT, request.getNome(), request.getCpf(), request.getEndereco());
+    public int insertClient(final ClienteRequest request) {
+        return jdbcTemplate.update(INSERT_CLIENT, request.getName(), request.getCpf(), request.getEndereco());
     }
 
     @Override

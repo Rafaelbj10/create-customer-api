@@ -10,7 +10,7 @@ public class ClienteMapper {
         return ClienteDto.builder()
                 .id(cliente.getId())
                 .endereco(cliente.getEndereco())
-                .nome(cliente.getNome())
+                .name(cliente.getName())
                 .build();
     }
 
