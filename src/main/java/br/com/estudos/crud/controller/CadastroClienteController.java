@@ -2,7 +2,6 @@ package br.com.estudos.crud.controller;
 
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
-import br.com.estudos.crud.presenters.cliente.ClienteResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -35,7 +34,6 @@ public interface CadastroClienteController {
     @GetMapping(value = "/{cpf}", produces = "application/json")
     ResponseEntity<ClienteDto> findByCpf(@PathVariable String cpf);
 
-
     @ApiOperation(value = "Buscar todos os cliente")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna todos os clientes"),
@@ -54,5 +52,13 @@ public interface CadastroClienteController {
     @DeleteMapping(value = "/{cpf}", produces = "application/json")
     ResponseEntity<Void> deleteClienteByCpf(@PathVariable String cpf);
 
+//    @ApiOperation(value = "Cadastra cliente")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 201, message = "Retorna o cliente cadastrado"),
+//            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+//            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+//    })
+//    @PutMapping
+//    ResponseEntity<ClienteDto> alterarCadastro(@RequestBody ClienteRequest request);
 
 }

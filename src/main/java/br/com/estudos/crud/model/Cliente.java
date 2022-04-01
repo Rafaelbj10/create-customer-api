@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "TB_CLIENTE", schema = "rafaelbj")
+@Table(name = "TB_CLIENTE", schema = "DIGIBANK")
 public class Cliente {
 
     @ApiModelProperty(value = "Código do cliente")

@@ -3,7 +3,6 @@ package br.com.estudos.crud.controller.Impl;
 import br.com.estudos.crud.controller.CadastroClienteController;
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
-import br.com.estudos.crud.presenters.cliente.ClienteResponse;
 import br.com.estudos.crud.service.CadastroClienteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
     }
 
     @Override
-    public ResponseEntity<ClienteDto> findByCpf(String cpf) {
+    public ResponseEntity<ClienteDto> findByCpf(final String cpf) {
         final var response = cadastroClienteService.findByCpf(cpf);
         return ResponseEntity.ok(response);
     }
@@ -39,6 +38,5 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
         cadastroClienteService.deleteClienteByCpf(cpf);
         return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
     }
-
 
 }
