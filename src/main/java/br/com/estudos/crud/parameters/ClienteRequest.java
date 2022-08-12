@@ -1,13 +1,10 @@
 package br.com.estudos.crud.parameters;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Id;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,15 +12,22 @@ import javax.persistence.Id;
 @Setter
 public class ClienteRequest {
 
-    @ApiModelProperty(value = "Código do cliente")
-    @Id
-    @JsonIgnore
-    private Long id;
     @ApiModelProperty(value = "Nome do cliente")
     private String name;
     @ApiModelProperty(value = "CPF do cliente")
     private String cpf;
-    @ApiModelProperty(value = "Endereço do cliente")
-    private String endereco;
-
+    @ApiModelProperty(value = "RG do cliente")
+    private String rg;
+    @ApiModelProperty(value = "Endereco do cliente")
+    private String address;
+    @ApiModelProperty(value = "Cep do cliente")
+    private String cep;
+    @ApiModelProperty(value = "Endereco de e-mail do cliente")
+    private String email;
+    @ApiModelProperty(value = "Telefone do cliente")
+    private String telephone;
+    @ApiModelProperty(value = "Descricao")
+    private String description;
+    @ApiModelProperty(value = "Data nascimento")
+    private String birthDate;
 }

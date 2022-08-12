@@ -24,7 +24,6 @@ public interface CadastroClienteController {
     @PostMapping
     ResponseEntity<Void> cadastrar(@RequestBody ClienteRequest request);
 
-
     @ApiOperation(value = "Buscar cliente por CPF")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna o cliente solicitado"),
@@ -51,14 +50,5 @@ public interface CadastroClienteController {
     })
     @DeleteMapping(value = "/{cpf}", produces = "application/json")
     ResponseEntity<Void> deleteClienteByCpf(@PathVariable String cpf);
-
-//    @ApiOperation(value = "Cadastra cliente")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 201, message = "Retorna o cliente cadastrado"),
-//            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-//            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
-//    })
-//    @PutMapping
-//    ResponseEntity<ClienteDto> alterarCadastro(@RequestBody ClienteRequest request);
 
 }
