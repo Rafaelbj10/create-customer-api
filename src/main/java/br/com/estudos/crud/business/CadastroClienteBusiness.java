@@ -1,20 +1,18 @@
-package br.com.estudos.crud.repository;
+package br.com.estudos.crud.business;
 
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 
 import java.util.List;
 
-public interface ClienteRepository {
+public interface CadastroClienteBusiness {
 
-    void insertClient(ClienteRequest request);
+    void cadastrar(ClienteRequest request);
 
     ClienteDto findByCpf(String cpf);
 
     List<ClienteDto> findAll();
 
-    void deleteClientByCpf(String cpf);
-
+    void deleteClienteByCpf(String cpf);
 
 }
-

@@ -7,14 +7,10 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class ClienteQuery {
 
-    public static final String INSERT_CLIENT = "INSERT INTO digibank.TB_CLIENTE (" +
-            "name," +
-            "cpf," +
-            "endereco)" +
-            "VALUES (" +
-            "?," +
-            "?," +
-            "?)";
+    public static final String INSERT_CLIENT = "INSERT INTO digibank.TB_CLIENTE " +
+            "(name, cpf, rg, address, email, telephone, description ) " +
+            "VALUES " +
+            "( ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String BUSCAR_POR_ID = "SELECT c.* FROM digibank.TB_CLIENTE c WHERE CPF = ? ";
 

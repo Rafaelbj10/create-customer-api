@@ -1,38 +1,36 @@
-package br.com.estudos.crud.service.Impl;
+package br.com.estudos.crud.business.impl;
 
+
+import br.com.estudos.crud.business.CadastroClienteBusiness;
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
-import br.com.estudos.crud.repository.ClienteRepository;
 import br.com.estudos.crud.service.CadastroClienteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
-@Transactional
-public class CadastroClienteServiceImpl implements CadastroClienteService {
+@Service
+public class CadastroClienteBusinessImpl implements CadastroClienteBusiness {
 
-    private final ClienteRepository clienteRepository;
+    private final CadastroClienteService cadastroClienteService;
 
     public void cadastrar(final ClienteRequest request) {
-        clienteRepository.insertClient(request);
+        cadastroClienteService.cadastrar(request);
     }
 
-    @Override
     public ClienteDto findByCpf(final String cpf) {
-        return clienteRepository.findByCpf(cpf);
+        return cadastroClienteService.findByCpf(cpf);
     }
 
-    @Override
     public List<ClienteDto> findAll() {
-        return clienteRepository.findAll();
+        return cadastroClienteService.findAll();
     }
 
     public void deleteClienteByCpf(final String cpf) {
-        clienteRepository.deleteClientByCpf(cpf);
+        cadastroClienteService.deleteClienteByCpf(cpf);
     }
+
 
 }

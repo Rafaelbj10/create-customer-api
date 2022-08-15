@@ -1,10 +1,8 @@
 package br.com.estudos.crud.config;
-
-import com.google.common.base.Predicates;
+import com.google.common.net.HttpHeaders;
 import io.swagger.models.auth.In;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -30,7 +28,6 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build()
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, responseMessageForGET())
@@ -65,6 +62,7 @@ public class SwaggerConfig {
         }};
     }
 
+
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
@@ -83,3 +81,4 @@ public class SwaggerConfig {
 
 
 }
+

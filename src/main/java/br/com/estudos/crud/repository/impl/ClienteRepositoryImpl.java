@@ -1,4 +1,4 @@
-package br.com.estudos.crud.repository.Impl;
+package br.com.estudos.crud.repository.impl;
 
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
@@ -19,8 +19,9 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public int insertClient(final ClienteRequest request) {
-        return jdbcTemplate.update(INSERT_CLIENT, request.getName(), request.getCpf(), request.getEndereco());
+    public void insertClient(final ClienteRequest request) {
+        jdbcTemplate.update(INSERT_CLIENT, request.getName(), request.getCpf(), request.getRg(),
+                request.getAddress(), request.getEmail(), request.getTelephone(), request.getDescription());
     }
 
     @Override
