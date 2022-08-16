@@ -8,9 +8,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class ClienteQuery {
 
     public static final String INSERT_CLIENT = "INSERT INTO digibank.TB_CLIENTE " +
-            "(name, cpf, rg, address, email, telephone, description ) " +
+            "(NAME, CPF, RG, ADDRESS, CEP, EMAIL, TELEPHONE, DESCRIPTION, BIRTH_DATE ) " +
             "VALUES " +
-            "( ?, ?, ?, ?, ?, ?, ?)";
+            "(:NAME, :CPF, :RG, :ADDRESS, :CEP, :EMAIL, :TELEPHONE, :DESCRIPTION, :BIRTH_DATE)";
 
     public static final String BUSCAR_POR_ID = "SELECT c.* FROM digibank.TB_CLIENTE c WHERE CPF = ? ";
 

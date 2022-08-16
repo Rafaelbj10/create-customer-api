@@ -1,17 +1,23 @@
-package br.com.estudos.crud.repository.impl;
+package br.com.estudos.crud.repository.Impl;
 
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static br.com.estudos.crud.utils.queries.ClienteQuery.*;
+import static br.com.estudos.crud.utils.queries.mappers.ClienteMapper.mapParameters;
+import static java.util.Objects.isNull;
 
 @RequiredArgsConstructor
 @Repository
@@ -19,9 +25,21 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void insertClient(final ClienteRequest request) {
-        jdbcTemplate.update(INSERT_CLIENT, request.getName(), request.getCpf(), request.getRg(),
-                request.getAddress(), request.getEmail(), request.getTelephone(), request.getDescription());
+    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
+
+    public Long insertClient(final ClienteRequest request) {
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        try {
+            namedParameterJdbcOperations.update(INSERT_CLIENT, mapParameters(request), keyHolder, new String[]{"ID"});
+            final var key = keyHolder.getKey();
+            if (!isNull(key)) {
+                return key.longValue();
+            }
+            throw new RuntimeException();
+        } catch (DataAccessException e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override

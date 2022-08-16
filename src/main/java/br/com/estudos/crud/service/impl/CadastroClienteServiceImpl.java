@@ -1,9 +1,10 @@
-package br.com.estudos.crud.service.Impl;
+package br.com.estudos.crud.service.impl;
 
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import br.com.estudos.crud.service.CadastroClienteService;
+import br.com.estudos.crud.service.ViaCepService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,12 @@ import java.util.List;
 public class CadastroClienteServiceImpl implements CadastroClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final ViaCepService viaCepService;
 
-    public void cadastrar(final ClienteRequest request) {
-        clienteRepository.insertClient(request);
+    public Long cadastrar(final ClienteRequest request) {
+        final var addressClient = viaCepService.getCep(request.getCep());
+        request.setAddress(addressClient.toString());
+        return clienteRepository.insertClient(request);
     }
 
     @Override

@@ -10,16 +10,22 @@ import lombok.*;
 @Builder
 public class ClienteDto {
 
-    @ApiModelProperty(value = "Id do cliente", example = "1")
-    private Long id;
-    @ApiModelProperty(value = "Nome do cliente", example = "Rafael Batista de Oliveira")
+    @ApiModelProperty(value = "Nome do cliente")
     private String name;
-    @ApiModelProperty(value = "Endereco do cliente", example = "Avenida José Barbosa de Siqueira 1805")
+    @ApiModelProperty(value = "CPF do cliente")
+    private String cpf;
+    @ApiModelProperty(value = "RG do cliente")
+    private String rg;
+    @ApiModelProperty(value = "Endereco do cliente")
     private String address;
-    @ApiModelProperty(value = "Endereco do cliente do cliente")
+    @ApiModelProperty(value = "Cep do cliente")
+    private String cep;
+    @ApiModelProperty(value = "Endereco de e-mail do cliente")
     private String email;
-    @ApiModelProperty(value = "E-mail do cliente")
+    @ApiModelProperty(value = "Telefone do cliente")
     private String telephone;
     @ApiModelProperty(value = "Descricao")
     private String description;
+    @ApiModelProperty(value = "Data nascimento")
+    private String birthDate;
 }

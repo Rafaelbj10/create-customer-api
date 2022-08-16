@@ -1,33 +1,47 @@
 package br.com.estudos.crud.service;
 
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
+import br.com.estudos.crud.presenters.cliente.viacep.ViaCepResponse;
 import br.com.estudos.crud.repository.ClienteRepository;
-import br.com.estudos.crud.service.Impl.CadastroClienteServiceImpl;
-import org.junit.Assert;
+import br.com.estudos.crud.service.impl.CadastroClienteServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+
+@RunWith(MockitoJUnitRunner.class)
 public class CadastroClienteServiceTest {
 
     @Mock
     private ClienteRepository clienteRepository;
 
+    @Mock
+    private ViaCepService viaCepService;
+
     private CadastroClienteService cadastroClienteService;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        cadastroClienteService = new CadastroClienteServiceImpl(clienteRepository);
+        openMocks(this);
+        cadastroClienteService = new CadastroClienteServiceImpl(clienteRepository, viaCepService);
     }
 
     @Test
     public void findByCpfComSucesso() {
-        Mockito.when(clienteRepository.findByCpf("41462515835")).thenReturn(getDto());
+        when(clienteRepository.findByCpf("41462515835")).thenReturn(getDto());
         final var result = cadastroClienteService.findByCpf("41462515835");
-        Assert.assertNotNull(result);
+        assertNotNull(result);
+    }
+
+    private ViaCepResponse getViaCepResponse() {
+        var cep = new ViaCepResponse();
+        cep.setCep("123");
+        return cep;
     }
 
     public ClienteDto getDto() {

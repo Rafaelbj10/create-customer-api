@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CadastroClienteService {
 
-    void cadastrar(ClienteRequest request);
+    Long cadastrar(ClienteRequest request);
 
     ClienteDto findByCpf(String cpf);
 
