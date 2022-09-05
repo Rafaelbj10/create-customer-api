@@ -14,10 +14,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class CadastroClienteControllerImpl implements CadastroClienteController {
+
     private final CadastroClienteBusiness cadastroClienteBusiness;
 
     public ResponseEntity<Void> cadastrar(final ClienteRequest request) {
-        cadastroClienteBusiness.cadastrar(request);
+         cadastroClienteBusiness.cadastrar(request);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

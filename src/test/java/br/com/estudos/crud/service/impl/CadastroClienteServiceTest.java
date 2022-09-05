@@ -1,10 +1,11 @@
-package br.com.estudos.crud.service;
+package br.com.estudos.crud.service.impl;
 
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.presenters.cliente.viacep.ViaCepResponse;
 import br.com.estudos.crud.repository.ClienteRepository;
-import br.com.estudos.crud.service.impl.CadastroClienteServiceImpl;
-import org.junit.Before;
+import br.com.estudos.crud.service.CadastroClienteService;
+import br.com.estudos.crud.service.ViaCepService;
+import org.aspectj.lang.annotation.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -25,7 +26,7 @@ public class CadastroClienteServiceTest {
 
     private CadastroClienteService cadastroClienteService;
 
-    @Before
+    @Before("test")
     public void setUp() {
         openMocks(this);
         cadastroClienteService = new CadastroClienteServiceImpl(clienteRepository, viaCepService);
@@ -48,6 +49,7 @@ public class CadastroClienteServiceTest {
         final var data = new ClienteDto();
         data.setAddress("Rua Amadeu Amaral");
         data.setDescription("descricao");
+        data.setCpf("41462515835");
         data.setEmail("rbatistaa321@gmail.com");
         data.setName("Rafael Batista");
         return data;

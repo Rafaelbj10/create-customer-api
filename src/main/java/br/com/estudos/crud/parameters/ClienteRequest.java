@@ -1,15 +1,10 @@
 package br.com.estudos.crud.parameters;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class ClienteRequest {
 
     @ApiModelProperty(value = "Nome do cliente")
@@ -19,6 +14,7 @@ public class ClienteRequest {
     @ApiModelProperty(value = "RG do cliente")
     private String rg;
     @ApiModelProperty(value = "Endereco do cliente")
+    @JsonIgnore
     private String address;
     @ApiModelProperty(value = "Cep do cliente")
     private String cep;

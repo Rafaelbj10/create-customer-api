@@ -13,6 +13,6 @@ public interface CadastroClienteService {
 
     List<ClienteDto> findAll();
 
-    void deleteClienteByCpf(String cpf);
+    int deleteClienteByCpf(String cpf);
 
 }
