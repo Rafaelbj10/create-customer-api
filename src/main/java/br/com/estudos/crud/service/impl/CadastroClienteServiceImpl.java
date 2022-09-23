@@ -17,7 +17,6 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
 
     private final ClienteRepository clienteRepository;
 
-
     public Long cadastrar(final ClienteRequest request) {
         return clienteRepository.insertClient(request);
     }
