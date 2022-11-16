@@ -24,8 +24,7 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
 
     @Override
     public ResponseEntity<ClienteDto> findByCpf(final String cpf) {
-        final var response = cadastroClienteBusiness.findByCpf(cpf);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(cadastroClienteBusiness.findByCpf(cpf));
     }
 
     @Override
