@@ -33,7 +33,7 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
     }
 
     @Override
-    public ResponseEntity<Void> deleteClienteByCpf(final String cpf) {
+    public ResponseEntity<Void> deleteByCpf(final String cpf) {
         cadastroClienteBusiness.deleteClienteByCpf(cpf);
         return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
     }

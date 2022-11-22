@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "clientes")
+@Api(tags = "Clientes")
 @RequestMapping(value = "/cliente", produces = "application/json")
 public interface CadastroClienteController {
 
@@ -49,6 +49,6 @@ public interface CadastroClienteController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @DeleteMapping(value = "/{cpf}", produces = "application/json")
-    ResponseEntity<Void> deleteClienteByCpf(@PathVariable String cpf);
+    ResponseEntity<Void> deleteByCpf(@PathVariable String cpf);
 
 }
