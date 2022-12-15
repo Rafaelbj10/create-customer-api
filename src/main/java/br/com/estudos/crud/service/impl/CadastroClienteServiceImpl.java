@@ -4,6 +4,7 @@ import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import br.com.estudos.crud.service.CadastroClienteService;
+import br.com.estudos.crud.utils.queries.mappers.ClienteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,8 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
 
     @Override
     public ClienteDto findByCpf(final String cpf) {
-        return clienteRepository.findByCpf(cpf);
+        final var cliente = clienteRepository.findByCpf(cpf);
+        return ClienteMapper.map(cliente);
     }
 
     @Override

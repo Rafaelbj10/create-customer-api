@@ -23,10 +23,11 @@ public class Cliente {
     private String name;
     private String cpf;
     private String rg;
-    private String endereco;
+    private String address;
     private String cep;
     private String email;
     private String telephone;
     private String description;
+    private String birthDate;
 
 }

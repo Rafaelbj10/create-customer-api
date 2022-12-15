@@ -1,5 +1,7 @@
 package br.com.estudos.crud.repository.impl;
 
+import br.com.estudos.crud.exception.UnprocessableEntityException;
+import br.com.estudos.crud.model.Cliente;
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
@@ -36,34 +38,34 @@ public class ClienteRepositoryImpl implements ClienteRepository {
             if (!isNull(key)) {
                 return key.longValue();
             }
-            throw new RuntimeException();
-        } catch (DataAccessException e) {
-            throw new RuntimeException();
+            throw new UnprocessableEntityException("Erro ao recuperar o id da solicitação!");
+        } catch (final DataAccessException e) {
+            throw new UnprocessableEntityException("Erro ao inserir registro na base!");
         }
     }
 
     @Override
-    public ClienteDto findByCpf(final String cpf) {
+    public Cliente findByCpf(final String cpf) {
         try {
-            return jdbcTemplate.queryForObject(BUSCAR_POR_ID, new BeanPropertyRowMapper<>(ClienteDto.class), cpf);
-        } catch (EmptyResultDataAccessException e) {
-            throw new RuntimeException("Não foi possível encontrar o cliente na base.");
+            return jdbcTemplate.queryForObject(BUSCAR_POR_ID, new BeanPropertyRowMapper<>(Cliente.class), cpf);
+        } catch (final DataAccessException e) {
+            throw new UnprocessableEntityException("Não foi possível encontrar o cliente na base.");
         }
     }
 
     public List<ClienteDto> findAll() {
         try {
             return jdbcTemplate.query(FIND_ALL_CLIENT, new BeanPropertyRowMapper<>(ClienteDto.class));
-        } catch (EmptyResultDataAccessException e) {
-            throw new RuntimeException("Não foi possível buscar todos os clientes no banco de dados. ");
+        } catch (final DataAccessException e) {
+            throw new UnprocessableEntityException("Não foi possível buscar todos os clientes no banco de dados. ");
         }
     }
 
     public int deleteClientByCpf(final String cpf) {
         try {
             return jdbcTemplate.update(DELETE_CLIENT_BY_ID, cpf);
-        } catch (DataAccessException e) {
-            return 0;
+        } catch (final DataAccessException e) {
+            throw new UnprocessableEntityException("Erro ao deletar o cliente!");
         }
     }
 

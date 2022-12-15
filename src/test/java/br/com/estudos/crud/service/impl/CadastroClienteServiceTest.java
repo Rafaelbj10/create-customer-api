@@ -1,5 +1,6 @@
 package br.com.estudos.crud.service.impl;
 
+import br.com.estudos.crud.model.Cliente;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import br.com.estudos.crud.service.CadastroClienteService;
@@ -35,9 +36,8 @@ public class CadastroClienteServiceTest {
         assertNotNull(result);
     }
 
-    public ClienteDto getDto() {
-        final var data = new ClienteDto();
-        data.setAddress("Rua Amadeu Amaral");
+    public Cliente getDto() {
+        final var data = new Cliente();
         data.setDescription("descricao");
         data.setCpf("41462515835");
         data.setEmail("rbatistaa321@gmail.com");
