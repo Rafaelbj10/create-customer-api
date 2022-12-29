@@ -17,3 +17,15 @@ TELEPHONE varchar(15)  null,
 DESCRIPTION varchar(255) null,
 BIRTH_DATE date null
 );
+
+Exemplo de request para cadastrar novo cliente:
+{
+"birthDate": "1993-07-26",
+"cep": "06172006",
+"cpf": "12345679",
+"description": "Cadastro de cliente",
+"email": "email@gmail.com",
+"name": "Nome completo",
+"rg": "4897623488",
+"telephone": "11987665349"
+}

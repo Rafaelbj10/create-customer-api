@@ -44,8 +44,8 @@ public class ClienteRepositoryTest {
 
     private List<ClienteDto> getClientList(){
         var list = new ClienteDto();
-        list.setRg("123456");
-        list.setCpf("456789");
+        list.setTelephone("123456");
+        list.setName("Nome");
         return newArrayList(list);
     }
 }

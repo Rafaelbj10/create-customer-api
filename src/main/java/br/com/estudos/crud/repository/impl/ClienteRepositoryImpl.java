@@ -7,7 +7,6 @@ import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -26,7 +25,6 @@ import static java.util.Objects.isNull;
 public class ClienteRepositoryImpl implements ClienteRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
     public Long insertClient(final ClienteRequest request) {
@@ -47,7 +45,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public Cliente findByCpf(final String cpf) {
         try {
-            return jdbcTemplate.queryForObject(BUSCAR_POR_ID, new BeanPropertyRowMapper<>(Cliente.class), cpf);
+            return jdbcTemplate.queryForObject(FIND_BY_CPF, new BeanPropertyRowMapper<>(Cliente.class), cpf);
         } catch (final DataAccessException e) {
             throw new UnprocessableEntityException("Não foi possível encontrar o cliente na base.");
         }
@@ -63,7 +61,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     public int deleteClientByCpf(final String cpf) {
         try {
-            return jdbcTemplate.update(DELETE_CLIENT_BY_ID, cpf);
+            return jdbcTemplate.update(DELETE_CLIENT_BY_CPF, cpf);
         } catch (final DataAccessException e) {
             throw new UnprocessableEntityException("Erro ao deletar o cliente!");
         }
