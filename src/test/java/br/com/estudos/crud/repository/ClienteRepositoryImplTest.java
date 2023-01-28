@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-public class ClienteRepositoryTest {
+public class ClienteRepositoryImplTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;

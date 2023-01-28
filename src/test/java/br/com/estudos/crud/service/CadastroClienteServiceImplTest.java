@@ -1,9 +1,8 @@
-package br.com.estudos.crud.service.impl;
+package br.com.estudos.crud.service;
 
 import br.com.estudos.crud.model.Cliente;
-import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
-import br.com.estudos.crud.service.CadastroClienteService;
+import br.com.estudos.crud.service.impl.CadastroClienteServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +15,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CadastroClienteServiceTest {
+public class CadastroClienteServiceImplTest {
 
     @Mock
     private ClienteRepository clienteRepository;
