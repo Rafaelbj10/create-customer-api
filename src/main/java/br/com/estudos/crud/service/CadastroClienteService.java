@@ -1,5 +1,6 @@
 package br.com.estudos.crud.service;
 
+import br.com.estudos.crud.model.Cliente;
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 
@@ -9,7 +10,9 @@ public interface CadastroClienteService {
 
     Long cadastrar(ClienteRequest request);
 
-    ClienteDto findByCpf(String cpf);
+    ClienteDto findByCpfDto(String cpf);
+
+    Cliente findByCpf(String cpf);
 
     List<ClienteDto> findAll();
 

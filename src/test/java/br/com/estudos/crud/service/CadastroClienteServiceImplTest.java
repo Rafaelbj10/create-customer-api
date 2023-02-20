@@ -31,7 +31,7 @@ public class CadastroClienteServiceImplTest {
     @Test
     public void findByCpfComSucesso() {
         when(clienteRepository.findByCpf(anyString())).thenReturn(getDto());
-        final var result = cadastroClienteService.findByCpf("41462515835");
+        final var result = cadastroClienteService.findByCpfDto("41462515835");
         assertNotNull(result);
     }
 

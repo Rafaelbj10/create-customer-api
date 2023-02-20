@@ -1,5 +1,6 @@
 package br.com.estudos.crud.service.impl;
 
+import br.com.estudos.crud.model.Cliente;
 import br.com.estudos.crud.parameters.ClienteRequest;
 import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
@@ -23,9 +24,14 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
     }
 
     @Override
-    public ClienteDto findByCpf(final String cpf) {
+    public ClienteDto findByCpfDto(final String cpf) {
         final var cliente = clienteRepository.findByCpf(cpf);
         return ClienteMapper.map(cliente);
+    }
+
+    @Override
+    public Cliente findByCpf(final String cpf) {
+        return clienteRepository.findByCpf(cpf);
     }
 
     @Override
