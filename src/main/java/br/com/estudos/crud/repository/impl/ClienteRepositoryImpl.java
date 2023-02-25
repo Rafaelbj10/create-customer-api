@@ -51,6 +51,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         }
     }
 
+    @Override
     public List<ClienteDto> findAll() {
         try {
             return jdbcTemplate.query(FIND_ALL_CLIENT, new BeanPropertyRowMapper<>(ClienteDto.class));
