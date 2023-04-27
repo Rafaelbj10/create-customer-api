@@ -26,7 +26,7 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
     @Override
     public ClienteDto findByCpfDto(final String cpf) {
         final var cliente = clienteRepository.findByCpf(cpf);
-        return ClienteMapper.map(cliente);
+        return ClienteMapper.mapCliente(cliente);
     }
 
     @Override
@@ -35,8 +35,13 @@ public class CadastroClienteServiceImpl implements CadastroClienteService {
     }
 
     @Override
-    public List<ClienteDto> findAll() {
+    public List<Cliente> findAll() {
         return clienteRepository.findAll();
+    }
+
+    @Override
+    public String findCpf(final String cpf) {
+        return clienteRepository.findCpf(cpf);
     }
 
     public int deleteClienteByCpf(final String cpf) {

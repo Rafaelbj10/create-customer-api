@@ -2,7 +2,6 @@ package br.com.estudos.crud.repository;
 
 import br.com.estudos.crud.model.Cliente;
 import br.com.estudos.crud.parameters.ClienteRequest;
-import br.com.estudos.crud.presenters.cliente.ClienteDto;
 
 import java.util.List;
 
@@ -12,7 +11,9 @@ public interface ClienteRepository {
 
     Cliente findByCpf(String cpf);
 
-    List<ClienteDto> findAll();
+    String findCpf(String cpf);
+
+    List<Cliente> findAll();
 
     int deleteClientByCpf(String cpf);
 

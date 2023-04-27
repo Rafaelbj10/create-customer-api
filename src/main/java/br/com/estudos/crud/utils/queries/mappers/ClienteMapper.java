@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ClienteMapper {
@@ -24,10 +27,17 @@ public final class ClienteMapper {
                 .addValue("BIRTH_DATE", cliente.getBirthDate());
     }
 
-    public static ClienteDto map(final Cliente cliente){
+    public static List<ClienteDto> map(final List<Cliente> clientes) {
+
+        return clientes.stream()
+                .map(ClienteMapper::mapCliente)
+                .collect(Collectors.toList());
+
+    }
+
+    public static ClienteDto mapCliente(final Cliente cliente) {
         return ClienteDto.builder()
                 .name(cliente.getName())
-                .address(cliente.getAddress())
                 .email(cliente.getEmail())
                 .telephone(cliente.getTelephone())
                 .description(cliente.getDescription())

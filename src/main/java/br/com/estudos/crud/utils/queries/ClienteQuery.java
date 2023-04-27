@@ -14,6 +14,8 @@ public class ClienteQuery {
 
     public static final String FIND_BY_CPF = "SELECT C.* FROM digibank.TB_CLIENTE C WHERE CPF = ? ";
 
+    public static final String FIND_CPF = "SELECT C.CPF FROM digibank.TB_CLIENTE C WHERE CPF = ? ";
+
     public static final String FIND_ALL_CLIENT = "SELECT TC.* FROM digibank.TB_CLIENTE TC ";
 
     public static final String DELETE_CLIENT_BY_CPF = "DELETE FROM digibank.TB_CLIENTE WHERE CPF = ? ";

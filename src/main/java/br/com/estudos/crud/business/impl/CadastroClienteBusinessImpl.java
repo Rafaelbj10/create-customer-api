@@ -8,6 +8,7 @@ import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.presenters.cliente.viacep.ViaCepResponse;
 import br.com.estudos.crud.service.CadastroClienteService;
 import br.com.estudos.crud.service.ViaCepService;
+import br.com.estudos.crud.utils.queries.mappers.ClienteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,11 @@ public class CadastroClienteBusinessImpl implements CadastroClienteBusiness {
     private final ViaCepService viaCepService;
 
     public void cadastrar(final ClienteRequest request) {
-
-        validCpf(request.getCpf());
-
-        fillAdreess(request);
-        cadastroClienteService.cadastrar(request);
+        var cpfExist = validIfCpfExist(request.getCpf());
+        if (isNull(cpfExist)) {
+            fillAdreess(request);
+            cadastroClienteService.cadastrar(request);
+        }
     }
 
     public void validCpf(final String cpf) {
@@ -38,6 +39,10 @@ public class CadastroClienteBusinessImpl implements CadastroClienteBusiness {
             throw new UnprocessableEntityException("CPF já cadastrado");
         }
 
+    }
+
+    public String validIfCpfExist(final String cpf) {
+        return cadastroClienteService.findCpf(cpf);
     }
 
     public ViaCepResponse fillAdreess(final ClienteRequest request) {
@@ -51,14 +56,17 @@ public class CadastroClienteBusinessImpl implements CadastroClienteBusiness {
     }
 
     public List<ClienteDto> findAll() {
-        return cadastroClienteService.findAll();
+        return ClienteMapper.map(cadastroClienteService.findAll());
     }
 
     public int deleteClienteByCpf(final String cpf) {
 
-        validCpf(cpf);
+        var cpfExist = validIfCpfExist(cpf);
 
-        return cadastroClienteService.deleteClienteByCpf(cpf);
+        if (!isNull(cpfExist)) {
+            return cadastroClienteService.deleteClienteByCpf(cpf);
+        }
+        return 0;
     }
 
 

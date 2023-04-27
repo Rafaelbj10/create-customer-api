@@ -14,7 +14,9 @@ public interface CadastroClienteService {
 
     Cliente findByCpf(String cpf);
 
-    List<ClienteDto> findAll();
+    String findCpf(String cpf);
+
+    List<Cliente> findAll();
 
     int deleteClienteByCpf(String cpf);
 

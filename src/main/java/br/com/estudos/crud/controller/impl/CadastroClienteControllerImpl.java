@@ -1,4 +1,4 @@
-package br.com.estudos.crud.controller.Impl;
+package br.com.estudos.crud.controller.impl;
 
 import br.com.estudos.crud.business.CadastroClienteBusiness;
 import br.com.estudos.crud.controller.CadastroClienteController;

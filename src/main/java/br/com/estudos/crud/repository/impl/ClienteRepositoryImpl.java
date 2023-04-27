@@ -3,10 +3,10 @@ package br.com.estudos.crud.repository.impl;
 import br.com.estudos.crud.exception.UnprocessableEntityException;
 import br.com.estudos.crud.model.Cliente;
 import br.com.estudos.crud.parameters.ClienteRequest;
-import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -52,9 +52,20 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public List<ClienteDto> findAll() {
+    public String findCpf(final String cpf) {
         try {
-            return jdbcTemplate.query(FIND_ALL_CLIENT, new BeanPropertyRowMapper<>(ClienteDto.class));
+            return jdbcTemplate.queryForObject(FIND_CPF, new BeanPropertyRowMapper<>(String.class), cpf);
+        } catch (final EmptyResultDataAccessException e) {
+            return null;
+        } catch (final DataAccessException e) {
+            throw new UnprocessableEntityException("Não foi possível encontrar o cliente na base.");
+        }
+    }
+
+    @Override
+    public List<Cliente> findAll() {
+        try {
+            return jdbcTemplate.query(FIND_ALL_CLIENT, new BeanPropertyRowMapper<>(Cliente.class));
         } catch (final DataAccessException e) {
             throw new UnprocessableEntityException("Não foi possível buscar todos os clientes no banco de dados. ");
         }
