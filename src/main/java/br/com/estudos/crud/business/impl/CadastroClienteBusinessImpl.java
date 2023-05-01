@@ -28,27 +28,9 @@ public class CadastroClienteBusinessImpl implements CadastroClienteBusiness {
         if (isNull(cpfExist)) {
             fillAdreess(request);
             cadastroClienteService.cadastrar(request);
-        }
-    }
-
-    public void validCpf(final String cpf) {
-
-        final var validCpf = cadastroClienteService.findByCpf(cpf);
-
-        if (!isNull(validCpf.getCpf())) {
+        } else {
             throw new UnprocessableEntityException("CPF já cadastrado");
         }
-
-    }
-
-    public String validIfCpfExist(final String cpf) {
-        return cadastroClienteService.findCpf(cpf);
-    }
-
-    public ViaCepResponse fillAdreess(final ClienteRequest request) {
-        final var cepRequest = viaCepService.getCep(request.getCep());
-        request.setAddress(cepRequest.toString());
-        return cepRequest;
     }
 
     public ClienteDto findByCpf(final String cpf) {
@@ -67,6 +49,16 @@ public class CadastroClienteBusinessImpl implements CadastroClienteBusiness {
             return cadastroClienteService.deleteClienteByCpf(cpf);
         }
         return 0;
+    }
+
+    public String validIfCpfExist(final String cpf) {
+        return cadastroClienteService.findCpf(cpf);
+    }
+
+    public ViaCepResponse fillAdreess(final ClienteRequest request) {
+        final var cepRequest = viaCepService.getCep(request.getCep());
+        request.setAddress(cepRequest.toString());
+        return cepRequest;
     }
 
 

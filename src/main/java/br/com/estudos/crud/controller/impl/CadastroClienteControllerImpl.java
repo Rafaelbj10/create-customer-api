@@ -19,7 +19,7 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
 
     public ResponseEntity<Void> cadastrar(final ClienteRequest request) {
          cadastroClienteBusiness.cadastrar(request);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CadastroClienteControllerImpl implements CadastroClienteController 
     @Override
     public ResponseEntity<Void> deleteByCpf(final String cpf) {
         cadastroClienteBusiness.deleteClienteByCpf(cpf);
-        return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
     }
 
 }

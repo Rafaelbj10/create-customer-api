@@ -17,6 +17,5 @@ public interface ClienteRepository {
 
     int deleteClientByCpf(String cpf);
 
-
 }
 

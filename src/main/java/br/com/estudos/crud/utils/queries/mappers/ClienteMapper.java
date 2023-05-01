@@ -27,6 +27,15 @@ public final class ClienteMapper {
                 .addValue("BIRTH_DATE", cliente.getBirthDate());
     }
 
+    public static ClienteDto mapToUpdateParameters(final ClienteRequest cliente) {
+        return ClienteDto.builder()
+                .name(cliente.getName())
+                .email(cliente.getEmail())
+                .telephone(cliente.getTelephone())
+                .description(cliente.getDescription())
+                .build();
+    }
+
     public static List<ClienteDto> map(final List<Cliente> clientes) {
 
         return clientes.stream()

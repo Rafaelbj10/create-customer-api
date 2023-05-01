@@ -20,4 +20,5 @@ public class ClienteQuery {
 
     public static final String DELETE_CLIENT_BY_CPF = "DELETE FROM digibank.TB_CLIENTE WHERE CPF = ? ";
 
+
 }
