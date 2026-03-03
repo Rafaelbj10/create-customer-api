@@ -1,29 +1,29 @@
 package br.com.estudos.crud.parameters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class ClienteRequest {
 
-    @ApiModelProperty(value = "Nome do cliente")
+    @Schema(description = "Nome do cliente")
     private String name;
-    @ApiModelProperty(value = "CPF do cliente")
+    @Schema(description = "CPF do cliente")
     private String cpf;
-    @ApiModelProperty(value = "RG do cliente")
+    @Schema(description = "RG do cliente")
     private String rg;
-    @ApiModelProperty(value = "Endereco do cliente")
+    @Schema(description = "Endereco do cliente")
     @JsonIgnore
     private String address;
-    @ApiModelProperty(value = "Cep do cliente")
+    @Schema(description = "Cep do cliente")
     private String cep;
-    @ApiModelProperty(value = "Endereco de e-mail do cliente")
+    @Schema(description = "Endereco de e-mail do cliente")
     private String email;
-    @ApiModelProperty(value = "Telefone do cliente")
+    @Schema(description = "Telefone do cliente")
     private String telephone;
-    @ApiModelProperty(value = "Descricao")
+    @Schema(description = "Descricao")
     private String description;
-    @ApiModelProperty(value = "Data nascimento")
+    @Schema(description = "Data nascimento")
     private String birthDate;
 }

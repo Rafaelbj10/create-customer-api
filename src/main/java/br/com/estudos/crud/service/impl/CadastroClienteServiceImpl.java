@@ -6,10 +6,10 @@ import br.com.estudos.crud.presenters.cliente.ClienteDto;
 import br.com.estudos.crud.repository.ClienteRepository;
 import br.com.estudos.crud.service.CadastroClienteService;
 import br.com.estudos.crud.utils.queries.mappers.ClienteMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
