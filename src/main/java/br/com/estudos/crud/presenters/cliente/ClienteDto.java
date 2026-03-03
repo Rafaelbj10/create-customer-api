@@ -1,6 +1,6 @@
 package br.com.estudos.crud.presenters.cliente;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
@@ -10,12 +10,12 @@ import lombok.*;
 @Builder
 public class ClienteDto {
 
-    @ApiModelProperty(value = "Nome do cliente")
+    @Schema(description = "Nome do cliente")
     private String name;
-    @ApiModelProperty(value = "Endereco de e-mail do cliente")
+    @Schema(description = "Endereco de e-mail do cliente")
     private String email;
-    @ApiModelProperty(value = "Telefone do cliente")
+    @Schema(description = "Telefone do cliente")
     private String telephone;
-    @ApiModelProperty(value = "Descricao")
+    @Schema(description = "Descricao")
     private String description;
 }
