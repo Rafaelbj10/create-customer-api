@@ -1,5 +1,11 @@
 package br.com.estudos.crud.exception;
 
+import lombok.Getter;
+
+/**
+ * Standard error response model
+ */
+@Getter
 public class ErrorResponse {
 
     private String message;
@@ -8,7 +14,4 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }
