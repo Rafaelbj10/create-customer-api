@@ -8,17 +8,16 @@ import lombok.Setter;
 
 import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+/**
+ * Entity representing a client
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "TB_CLIENTE", schema = "DIGIBANK")
-public class Cliente {
+@Table(name = "TB_CLIENT", schema = "DIGIBANK")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +27,7 @@ public class Cliente {
     private String cpf;
     private String rg;
     private String address;
-    private String cep;
+    private String zipCode;
     private String email;
     private String telephone;
     private String description;
