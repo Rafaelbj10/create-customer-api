@@ -5,7 +5,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'com.cadastro.clientes'
+group = 'com.create.customer'
 version = '0.0.1-SNAPSHOT'
 
 java {
