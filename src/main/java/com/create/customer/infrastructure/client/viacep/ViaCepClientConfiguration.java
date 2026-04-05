@@ -1,4 +1,4 @@
-package com.create.customer.infrastructure.client;
+package com.create.customer.infrastructure.client.viacep;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
