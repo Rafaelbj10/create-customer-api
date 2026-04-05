@@ -1,6 +1,6 @@
 package com.create.customer.application.service.impl;
 
-import com.create.customer.infrastructure.client.ZipCodeClient;
+import com.create.customer.infrastructure.client.viacep.ZipCodeClient;
 import com.create.customer.domain.exception.InvalidZipCodeException;
 import com.create.customer.infrastructure.client.viacep.ViaCepResponse;
 import com.create.customer.application.service.ZipCodeService;
