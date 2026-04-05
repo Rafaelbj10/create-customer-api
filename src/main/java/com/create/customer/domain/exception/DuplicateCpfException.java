@@ -1,8 +1,5 @@
 package com.create.customer.domain.exception;
 
-/**
- * Exception thrown when a CPF is already registered
- */
 public class DuplicateCpfException extends RuntimeException {
 
     public DuplicateCpfException(String cpf) {

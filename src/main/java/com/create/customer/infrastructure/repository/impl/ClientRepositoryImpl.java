@@ -1,6 +1,6 @@
 package com.create.customer.infrastructure.repository.impl;
 
-import com.create.customer.exception.UnprocessableEntityException;
+import com.create.customer.domain.exception.UnprocessableEntityException;
 import com.create.customer.domain.model.Client;
 import com.create.customer.domain.parameters.ClientRequest;
 import com.create.customer.infrastructure.client.ClientDto;
