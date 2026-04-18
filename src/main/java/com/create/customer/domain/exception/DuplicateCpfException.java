@@ -1,0 +1,14 @@
+package com.create.customer.domain.exception;
+
+public class DuplicateCpfException extends RuntimeException {
+
+    public DuplicateCpfException(String cpf) {
+        super(String.format("CPF '%s' is already registered", cpf));
+    }
+
+    public DuplicateCpfException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+
