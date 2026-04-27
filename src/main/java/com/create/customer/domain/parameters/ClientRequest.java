@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -39,4 +40,7 @@ public class ClientRequest {
 
     @Schema(description = "Client date of birth (ISO format: YYYY-MM-DD)", example = "1990-01-15")
     private LocalDate birthDate;
+
+    @Schema(description = "Client monthly income", example = "5000.00")
+    private BigDecimal monthlyIncome;
 }

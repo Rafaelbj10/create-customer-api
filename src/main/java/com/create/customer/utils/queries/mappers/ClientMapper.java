@@ -1,6 +1,6 @@
 package com.create.customer.utils.queries.mappers;
 
-import com.create.customer.domain.model.Client;
+import com.create.customer.domain.model.Customer;
 import com.create.customer.domain.parameters.ClientRequest;
 import com.create.customer.infrastructure.client.ClientDto;
 import lombok.AccessLevel;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ClientMapper {
 
-    public static MapSqlParameterSource mapParameters(final ClientRequest client) {
+    public static MapSqlParameterSource mapParameters(final ClientRequest client, UUID externalId) {
         return new MapSqlParameterSource()
                 .addValue("NAME", client.getName())
                 .addValue("CPF", client.getCpf())
@@ -26,7 +27,9 @@ public final class ClientMapper {
                 .addValue("EMAIL", client.getEmail())
                 .addValue("TELEPHONE", client.getTelephone())
                 .addValue("DESCRIPTION", client.getDescription())
-                .addValue("BIRTH_DATE", client.getBirthDate());
+                .addValue("BIRTH_DATE", client.getBirthDate())
+                .addValue("externalId", externalId.toString());
+
     }
 
     public static ClientDto mapToUpdateParameters(final ClientRequest client) {
@@ -43,23 +46,23 @@ public final class ClientMapper {
                 .build();
     }
 
-    public static List<ClientDto> map(final List<Client> clients) {
-        return clients.stream()
+    public static List<ClientDto> map(final List<Customer> customers) {
+        return customers.stream()
                 .map(ClientMapper::mapClient)
                 .collect(Collectors.toList());
     }
 
-    public static ClientDto mapClient(final Client client) {
+    public static ClientDto mapClient(final Customer customer) {
         return ClientDto.builder()
-                .name(client.getName())
-                .cpf(client.getCpf())
-                .rg(client.getRg())
-                .address(client.getAddress())
-                .zipCode(client.getZipCode())
-                .email(client.getEmail())
-                .telephone(client.getTelephone())
-                .description(client.getDescription())
-                .birthDate(client.getBirthDate())
+                .name(customer.getName())
+                .cpf(customer.getCpf())
+                .rg(customer.getRg())
+                .address(customer.getAddress())
+                .zipCode(customer.getZipCode())
+                .email(customer.getEmail())
+                .telephone(customer.getTelephone())
+                .description(customer.getDescription())
+                .birthDate(customer.getBirthDate())
                 .build();
     }
 
