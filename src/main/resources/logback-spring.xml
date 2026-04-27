@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>traceId</includeMdcKeyName>
+            <includeMdcKeyName>spanId</includeMdcKeyName>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="JSON"/>
+    </root>
     <!-- Variáveis de contexto -->
     <property name="LOG_FILE" value="logs/cadastro-clientes.log" />
     <property name="LOG_FILE_ERROR" value="logs/cadastro-clientes-error.log" />

@@ -63,7 +63,7 @@ create-customer-api/
 │   └── service/             # Casos de uso e orquestração de negócio
 │
 ├── infrastructure           # Camada de infraestrutura
-│   ├── client/             # Integrações com APIs externas (ViaCEP)
+│   ├── customer/             # Integrações com APIs externas (ViaCEP)
 │   └── repository/         # Implementações de persistência (JPA)
 │
 └── presentation            # Camada de apresentação
@@ -130,10 +130,10 @@ server.port=8080
 spring.mvc.pathmatch.matching-strategy=ant_path_matcher
 
 # Feign Configuration - ViaCEP Client
-feign.client.config.default.connectTimeout=5000
-feign.client.config.default.readTimeout=5000
-feign.client.config.viacep-client.connectTimeout=3000
-feign.client.config.viacep-client.readTimeout=3000
+feign.customer.config.default.connectTimeout=5000
+feign.customer.config.default.readTimeout=5000
+feign.customer.config.viacep-customer.connectTimeout=3000
+feign.customer.config.viacep-customer.readTimeout=3000
 
 # Logging
 logging.level.com.create.customer=DEBUG
@@ -183,7 +183,7 @@ O projeto utiliza **Logback** com configuração em `src/main/resources/logback-
 ### 1. Registrar Novo Cliente
 
 ```http
-POST /client/register
+POST /customer/register
 Content-Type: application/json
 ```
 
@@ -217,13 +217,13 @@ Content-Type: application/json
 ### 2. Buscar Cliente por CPF
 
 ```http
-GET /client/{cpf}
+GET /customer/{cpf}
 ```
 
 **Exemplo:**
 
 ```bash
-curl -X GET http://localhost:8080/client/12345678901
+curl -X GET http://localhost:8080/customer/12345678901
 ```
 
 **Response (200):**
@@ -248,7 +248,7 @@ curl -X GET http://localhost:8080/client/12345678901
 ### 3. Listar Todos os Clientes
 
 ```http
-GET /client
+GET /customer
 ```
 
 **Response (200):**
@@ -277,13 +277,13 @@ GET /client
 ### 4. Deletar Cliente
 
 ```http
-DELETE /client/{cpf}
+DELETE /customer/{cpf}
 ```
 
 **Exemplo:**
 
 ```bash
-curl -X DELETE http://localhost:8080/client/12345678901
+curl -X DELETE http://localhost:8080/customer/12345678901
 ```
 
 **Response:**
@@ -303,7 +303,7 @@ curl -X DELETE http://localhost:8080/client/12345678901
 
 ```bash
 # Registrar cliente
-curl -X POST http://localhost:8080/client/register \
+curl -X POST http://localhost:8080/customer/register \
   -H "Content-Type: application/json" \
   -d '{
     "name": "João Silva",
@@ -317,23 +317,23 @@ curl -X POST http://localhost:8080/client/register \
   }'
 
 # Buscar cliente por CPF
-curl -X GET http://localhost:8080/client/12345678901
+curl -X GET http://localhost:8080/customer/12345678901
 
 # Listar todos os clientes
-curl -X GET http://localhost:8080/client
+curl -X GET http://localhost:8080/customer
 
 # Deletar cliente
-curl -X DELETE http://localhost:8080/client/12345678901
+curl -X DELETE http://localhost:8080/customer/12345678901
 ```
 
 ### Com Postman
 
 1. Abra o Postman
 2. Importe as requisições ou crie manualmente:
-   - **POST** - `http://localhost:8080/client/register`
-   - **GET** - `http://localhost:8080/client/{cpf}`
-   - **GET** - `http://localhost:8080/client`
-   - **DELETE** - `http://localhost:8080/client/{cpf}`
+    - **POST** - `http://localhost:8080/customer/register`
+    - **GET** - `http://localhost:8080/customer/{cpf}`
+    - **GET** - `http://localhost:8080/customer`
+    - **DELETE** - `http://localhost:8080/customer/{cpf}`
 
 ### Com Swagger/OpenAPI
 
@@ -368,7 +368,7 @@ create-customer-api/
 │   │   │   │       └── impl/
 │   │   │   │
 │   │   │   ├── infrastructure/                  # Camada de Infraestrutura
-│   │   │   │   ├── client/                      # Clientes HTTP (Feign)
+│   │   │   │   ├── customer/                      # Clientes HTTP (Feign)
 │   │   │   │   │   └── ViaCepClient
 │   │   │   │   └── repository/                  # Persistência (JPA)
 │   │   │   │       └── ClienteRepository

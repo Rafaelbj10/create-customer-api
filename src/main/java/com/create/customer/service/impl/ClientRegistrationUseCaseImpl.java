@@ -1,16 +1,18 @@
-package com.create.customer.application.service.impl;
+package com.create.customer.service.impl;
 
-import com.create.customer.application.service.ClientRegistrationUseCase;
 import com.create.customer.domain.exception.UnprocessableEntityException;
 import com.create.customer.domain.parameters.ClientRequest;
-import com.create.customer.infrastructure.client.ClientDto;
-import com.create.customer.application.service.ClientRegistrationService;
-import com.create.customer.application.service.ZipCodeService;
+import com.create.customer.events.CustomerCreatedEvent;
+import com.create.customer.service.ClientRegistrationService;
+import com.create.customer.service.ClientRegistrationUseCase;
+import com.create.customer.service.SqsService;
+import com.create.customer.service.ZipCodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
@@ -21,6 +23,7 @@ public class ClientRegistrationUseCaseImpl implements ClientRegistrationUseCase 
 
     private final ClientRegistrationService clientRegistrationService;
     private final ZipCodeService zipCodeService;
+    private final SqsService sqsService;
 
     @Override
     public void register(final ClientRequest request) {
@@ -29,38 +32,24 @@ public class ClientRegistrationUseCaseImpl implements ClientRegistrationUseCase 
         if (isNull(cpfExists)) {
             log.debug("CPF not found, filling address information from ViaCEP");
             fillAddress(request);
-            clientRegistrationService.register(request);
+
+            UUID externalId = UUID.randomUUID();
+            final Long customerId = clientRegistrationService.insertClient(request, externalId);
+
+            CustomerCreatedEvent event = new CustomerCreatedEvent();
+            event.setCustomerId(externalId);
+            event.setCpf(request.getCpf());
+            event.setMonthlyIncome(request.getMonthlyIncome());
+            event.setTimestamp(LocalDateTime.now());
+
+            sqsService.sendCustomerCreatedEvent(event);
+            log.info("CustomerCreatedEvent sent to SQS after registration for customerId: {}", customerId);
+
             log.info("Client registered successfully");
         } else {
             log.warn("CPF already registered: {}", request.getCpf());
             throw new UnprocessableEntityException("CPF already registered");
         }
-    }
-
-    @Override
-    public ClientDto findByCpf(final String cpf) {
-        log.info("Finding client by CPF: {}", cpf);
-        return clientRegistrationService.findByCpfDto(cpf);
-    }
-
-    @Override
-    public List<ClientDto> findAll() {
-        log.info("Fetching all registered clients");
-        return clientRegistrationService.findAll();
-    }
-
-    @Override
-    public int deleteClientByCpf(final String cpf) {
-        log.info("Initiating client deletion for CPF: {}", cpf);
-        var cpfExists = validateIfCpfExists(cpf);
-
-        if (!isNull(cpfExists)) {
-            int result = clientRegistrationService.deleteClientByCpf(cpf);
-            log.info("Client deleted successfully");
-            return result;
-        }
-        log.warn("Client not found for deletion with CPF: {}", cpf);
-        throw new UnprocessableEntityException("Client not found for deletion");
     }
 
     private String validateIfCpfExists(final String cpf) {
