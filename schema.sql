@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS TB_CLIENT (
     BIRTH_DATE  DATE COMMENT 'Client date of birth',
     CREATED_AT  TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Record creation timestamp',
     UPDATED_AT  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Record update timestamp'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Table for client information storage';
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE =utf8mb4_unicode_ci COMMENT='Table for customer information storage';
 
 -- Opção 2: Se a tabela já existe e precisa ser alterada
 -- ALTER TABLE TB_CLIENT CHANGE COLUMN CEP ZIP_CODE VARCHAR(8);
