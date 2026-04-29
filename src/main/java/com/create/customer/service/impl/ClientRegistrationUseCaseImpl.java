@@ -3,10 +3,7 @@ package com.create.customer.service.impl;
 import com.create.customer.domain.exception.UnprocessableEntityException;
 import com.create.customer.domain.parameters.ClientRequest;
 import com.create.customer.events.CustomerCreatedEvent;
-import com.create.customer.service.ClientRegistrationService;
-import com.create.customer.service.ClientRegistrationUseCase;
-import com.create.customer.service.SqsService;
-import com.create.customer.service.ZipCodeService;
+import com.create.customer.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +20,7 @@ public class ClientRegistrationUseCaseImpl implements ClientRegistrationUseCase 
 
     private final ClientRegistrationService clientRegistrationService;
     private final ZipCodeService zipCodeService;
-    private final SqsService sqsService;
+    private final SnsService snsService;
 
     @Override
     public void register(final ClientRequest request) {
@@ -42,7 +39,7 @@ public class ClientRegistrationUseCaseImpl implements ClientRegistrationUseCase 
             event.setMonthlyIncome(request.getMonthlyIncome());
             event.setTimestamp(LocalDateTime.now());
 
-            sqsService.sendCustomerCreatedEvent(event);
+            snsService.sendCustomerCreatedEvent(event);
             log.info("CustomerCreatedEvent sent to SQS after registration for customerId: {}", customerId);
 
             log.info("Client registered successfully");
