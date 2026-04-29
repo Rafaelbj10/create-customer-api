@@ -1,4 +1,4 @@
-package com.create.customer.application.service;
+package com.create.customer.service;
 
 import com.create.customer.infrastructure.client.viacep.ViaCepResponse;
 

@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- Variáveis de contexto -->
+
+    <!-- ========================= -->
+    <!-- PROPERTIES -->
+    <!-- ========================= -->
     <property name="LOG_FILE" value="logs/cadastro-clientes.log" />
     <property name="LOG_FILE_ERROR" value="logs/cadastro-clientes-error.log" />
 
-    <!-- Appender Console -->
+    <!-- ========================= -->
+    <!-- CONSOLE (simples) -->
+    <!-- ========================= -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Appender File (todas as mensagens) -->
+    <!-- ========================= -->
+    <!-- FILE (todos logs) -->
+    <!-- ========================= -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE}</file>
         <encoder>
@@ -25,17 +32,22 @@
         </rollingPolicy>
     </appender>
 
-    <!-- Appender File (apenas erros) -->
+    <!-- ========================= -->
+    <!-- FILE (somente erros) -->
+    <!-- ========================= -->
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE_ERROR}</file>
+
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
+
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
+
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_FILE_ERROR}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
@@ -44,31 +56,44 @@
         </rollingPolicy>
     </appender>
 
-    <!-- Loggers específicos -->
-    <logger name="br.com.estudos.crud" level="DEBUG" />
-    <logger name="org.springframework.web" level="INFO" />
-    <logger name="org.springframework.data" level="INFO" />
-    <logger name="org.hibernate" level="INFO" />
+    <!-- ========================= -->
+    <!-- LOKI (AQUI É O IMPORTANTE) -->
+    <!-- ========================= -->
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <!-- ⚠️ Porta correta do Loki -->
+            <url>http://localhost:3100/loki/api/v1/push</url>
+        </http>
 
-    <!-- Root Logger -->
+        <format>
+            <!-- Labels para consulta no Grafana -->
+            <label>
+                <pattern>app=spring-boot-api,level=%level,logger=%logger</pattern>
+            </label>
+
+            <!-- Mensagem -->
+            <message>
+                <pattern>%msg</pattern>
+            </message>
+        </format>
+    </appender>
+
+    <!-- ========================= -->
+    <!-- LOGGERS -->
+    <!-- ========================= -->
+    <logger name="br.com.estudos.crud" level="DEBUG"/>
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.springframework.data" level="INFO"/>
+    <logger name="org.hibernate" level="INFO"/>
+
+    <!-- ========================= -->
+    <!-- ROOT (ÚNICO E CORRETO) -->
+    <!-- ========================= -->
     <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
-        <appender-ref ref="FILE_ERROR" />
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="LOKI"/>
     </root>
 
-    <!-- Profiles -->
-    <springProfile name="dev">
-        <root level="DEBUG">
-            <appender-ref ref="CONSOLE" />
-            <appender-ref ref="FILE" />
-        </root>
-    </springProfile>
-
-    <springProfile name="prod">
-        <root level="INFO">
-            <appender-ref ref="FILE" />
-            <appender-ref ref="FILE_ERROR" />
-        </root>
-    </springProfile>
 </configuration>
