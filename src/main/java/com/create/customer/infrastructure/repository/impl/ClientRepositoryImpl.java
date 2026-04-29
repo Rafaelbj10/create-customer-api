@@ -1,7 +1,7 @@
 package com.create.customer.infrastructure.repository.impl;
 
 import com.create.customer.domain.exception.UnprocessableEntityException;
-import com.create.customer.domain.model.Client;
+import com.create.customer.domain.model.Customer;
 import com.create.customer.domain.parameters.ClientRequest;
 import com.create.customer.infrastructure.client.ClientDto;
 import com.create.customer.infrastructure.repository.ClientRepository;
@@ -17,14 +17,12 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.create.customer.utils.queries.ClientQuery.*;
 import static com.create.customer.utils.queries.mappers.ClientMapper.mapParameters;
 import static java.util.Objects.isNull;
 
-/**
- * Implementation of ClientRepository
- */
 @Slf4j
 @RequiredArgsConstructor
 @Repository
@@ -34,17 +32,28 @@ public class ClientRepositoryImpl implements ClientRepository {
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
     @Override
-    public Long insertClient(final ClientRequest request) {
+    public Long insertClient(final ClientRequest request, UUID externalId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
+
         try {
-            namedParameterJdbcOperations.update(INSERT_CLIENT, mapParameters(request), keyHolder, new String[]{"ID"});
+            namedParameterJdbcOperations.update(
+                    INSERT_CLIENT,
+                    mapParameters(request, externalId),
+                    keyHolder,
+                    new String[]{"ID"}
+            );
+
             final var key = keyHolder.getKey();
+
             if (!isNull(key)) {
-                log.info("Client inserted successfully with ID: {}", key.longValue());
+                log.info("Client inserted successfully with ID: {} and externalId: {}",
+                        key.longValue(), externalId);
                 return key.longValue();
             }
+
             log.error("Failed to retrieve generated ID from insert operation");
             throw new UnprocessableEntityException("Error retrieving the ID from the request!");
+
         } catch (final DataAccessException e) {
             log.error("Error inserting record into database", e);
             throw new UnprocessableEntityException("Error inserting record into database!");
@@ -52,10 +61,14 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client findByCpf(final String cpf) {
+    public Customer findByCpf(final String cpf) {
         try {
             log.debug("Searching for client with CPF: {}", cpf);
-            return jdbcTemplate.queryForObject(FIND_BY_CPF, new BeanPropertyRowMapper<>(Client.class), cpf);
+            return jdbcTemplate.queryForObject(
+                    FIND_BY_CPF,
+                    new BeanPropertyRowMapper<>(Customer.class),
+                    cpf
+            );
         } catch (final EmptyResultDataAccessException e) {
             log.warn("Client not found with CPF: {}", cpf);
             throw new UnprocessableEntityException("Client not found in database.");
@@ -69,7 +82,11 @@ public class ClientRepositoryImpl implements ClientRepository {
     public String findCpf(final String cpf) {
         try {
             log.debug("Verifying CPF existence: {}", cpf);
-            return jdbcTemplate.queryForObject(FIND_CPF, new BeanPropertyRowMapper<>(String.class), cpf);
+            return jdbcTemplate.queryForObject(
+                    FIND_CPF,
+                    String.class,
+                    cpf
+            );
         } catch (final EmptyResultDataAccessException e) {
             log.debug("CPF not found: {}", cpf);
             return null;
@@ -83,7 +100,10 @@ public class ClientRepositoryImpl implements ClientRepository {
     public List<ClientDto> findAll() {
         try {
             log.debug("Fetching all clients from database");
-            return jdbcTemplate.query(FIND_ALL_CLIENT, new BeanPropertyRowMapper<>(ClientDto.class));
+            return jdbcTemplate.query(
+                    FIND_ALL_CLIENT,
+                    new BeanPropertyRowMapper<>(ClientDto.class)
+            );
         } catch (final DataAccessException e) {
             log.error("Database error while fetching all clients", e);
             throw new UnprocessableEntityException("Could not fetch all clients from database.");
@@ -95,19 +115,18 @@ public class ClientRepositoryImpl implements ClientRepository {
         try {
             log.info("Deleting client with CPF: {}", cpf);
             int result = jdbcTemplate.update(DELETE_CLIENT_BY_CPF, cpf);
+
             if (result == 0) {
                 log.warn("No client found to delete with CPF: {}", cpf);
                 throw new UnprocessableEntityException("Client not found for deletion.");
             }
+
             log.info("Client deleted successfully with CPF: {}", cpf);
             return result;
+
         } catch (final DataAccessException e) {
             log.error("Database error while deleting client with CPF: {}", cpf, e);
             throw new UnprocessableEntityException("Error deleting client!");
         }
     }
-
 }
-
-
-
