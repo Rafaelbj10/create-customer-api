@@ -95,20 +95,25 @@ Crie o banco de dados no MySQL:
 CREATE SCHEMA digibank;
 
 -- Criar tabela de clientes
-CREATE TABLE digibank.TB_CLIENTE (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    NAME VARCHAR(255),
-    CPF VARCHAR(11) NOT NULL UNIQUE,
-    RG VARCHAR(9),
-    ADDRESS VARCHAR(255),
-    CEP VARCHAR(8),
-    EMAIL VARCHAR(100),
-    TELEPHONE VARCHAR(15),
-    DESCRIPTION VARCHAR(255),
-    BIRTH_DATE DATE,
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+create table TB_CLIENT
+(
+   ID          int auto_increment
+        primary key,
+   NAME        varchar(255)                        null,
+   CPF         varchar(11)                         not null,
+   RG          varchar(9)                          null,
+   ADDRESS     varchar(255)                        null,
+   ZIP_CODE         varchar(8)                          null,
+   EMAIL       varchar(100)                        null,
+   TELEPHONE   varchar(15)                         null,
+   DESCRIPTION varchar(255)                        null,
+   BIRTH_DATE  date                                null,
+   CREATED_AT  timestamp default CURRENT_TIMESTAMP null,
+   UPDATED_AT  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+   constraint CPF
+      unique (CPF)
 );
+
 
 -- Criar índices para melhor performance
 CREATE INDEX idx_cpf ON digibank.TB_CLIENTE(CPF);
