@@ -28,4 +28,3 @@ public interface ClientRegistrationController {
     ResponseEntity<Void> register(@RequestBody ClientRequest request);
 
 }
-
