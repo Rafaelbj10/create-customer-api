@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @Configuration
-public class SnsConfig {
+public class DynamoDbConfig {
 
     @Value("${spring.cloud.aws.credentials.access-key}")
     private String accessKey;
@@ -18,14 +19,21 @@ public class SnsConfig {
     private String secretKey;
 
     @Bean
-    public SnsClient snsClient() {
-        return SnsClient.builder()
+    public DynamoDbClient dynamoDbClient() {
+        return DynamoDbClient.builder()
                 .region(Region.US_EAST_1)
                 .credentialsProvider(
                         StaticCredentialsProvider.create(
                                 AwsBasicCredentials.create(accessKey, secretKey)
                         )
                 )
+                .build();
+    }
+
+    @Bean
+    public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
+        return DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(dynamoDbClient)
                 .build();
     }
 }
