@@ -24,7 +24,7 @@ public class SnsServiceImpl implements SnsService {
 
     @Override
     public void sendCustomerCreatedEvent(CustomerCreatedEvent event) {
-
+        log.info("Sending to topicArn: {}", topicArn);
         Span span = tracer.nextSpan().name("sns.publish.customer-created").start();
 
         try (Tracer.SpanInScope ws = tracer.withSpan(span)) {

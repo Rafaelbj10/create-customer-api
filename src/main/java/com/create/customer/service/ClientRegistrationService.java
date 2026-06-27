@@ -6,9 +6,7 @@ import java.util.UUID;
 
 public interface ClientRegistrationService {
 
-    Long insertClient(final ClientRequest request, UUID externalId);
+    UUID insertClient(final ClientRequest request, UUID externalId);
 
     String findCpf(String cpf);
-
 }
-

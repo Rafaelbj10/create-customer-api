@@ -22,13 +22,9 @@ dependencies {
 
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // Feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
-    // MySQL
-    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
@@ -41,6 +37,7 @@ dependencies {
     implementation platform("software.amazon.awssdk:bom:2.25.0")
     implementation "software.amazon.awssdk:sqs"
     implementation "software.amazon.awssdk:sns"
+    implementation "software.amazon.awssdk:dynamodb-enhanced" // <-- adicionado
 
     // Testes
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
