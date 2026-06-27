@@ -7,12 +7,9 @@ import com.create.customer.infrastructure.client.ClientDto;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Repository interface for client data access operations
- */
-public interface ClientRepository {
+public interface CustomerRepository {
 
-    Long insertClient(ClientRequest request, UUID externalId);
+    UUID insertClient(ClientRequest request, UUID externalId);
 
     Customer findByCpf(String cpf);
 
@@ -21,6 +18,4 @@ public interface ClientRepository {
     List<ClientDto> findAll();
 
     int deleteClientByCpf(String cpf);
-
 }
-

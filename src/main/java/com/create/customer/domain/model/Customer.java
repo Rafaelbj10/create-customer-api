@@ -1,71 +1,127 @@
 package com.create.customer.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Entity
-@Table(name = "TB_CLIENT", schema = "DIGIBANK")
+@Builder
+@DynamoDbBean
 public class Customer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "NAME", nullable = false)
-    private String name;
-
-    @Column(name = "CPF", nullable = false, unique = true, length = 11)
     private String cpf;
-
-    @Column(name = "RG", length = 9)
+    private String name;
     private String rg;
-
-    @Column(name = "ADDRESS")
     private String address;
-
-    @Column(name = "ZIP_CODE", length = 8)
     private String zipCode;
-
-    @Column(name = "EMAIL", length = 100)
     private String email;
-
-    @Column(name = "TELEPHONE", length = 15)
     private String telephone;
-
-    @Column(name = "DESCRIPTION")
     private String description;
+    private String birthDate;
+    private String createdAt;
+    private String updatedAt;
 
-    @Column(name = "BIRTH_DATE")
-    private LocalDate birthDate;
-
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "UPDATED_AT")
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+    @DynamoDbPartitionKey
+    @DynamoDbAttribute("CPF")
+    public String getCpf() {
+        return cpf;
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
+    @DynamoDbAttribute("NAME")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @DynamoDbAttribute("RG")
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    @DynamoDbAttribute("ADDRESS")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @DynamoDbAttribute("ZIP_CODE")
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    @DynamoDbSecondaryPartitionKey(indexNames = "EMAIL-index")
+    @DynamoDbAttribute("EMAIL")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @DynamoDbAttribute("TELEPHONE")
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    @DynamoDbAttribute("DESCRIPTION")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @DynamoDbAttribute("BIRTH_DATE")
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    @DynamoDbAttribute("CREATED_AT")
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @DynamoDbAttribute("UPDATED_AT")
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

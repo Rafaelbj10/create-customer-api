@@ -5,8 +5,8 @@ import com.create.customer.domain.parameters.ClientRequest;
 import com.create.customer.infrastructure.client.ClientDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,19 +17,18 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ClientMapper {
 
-    public static MapSqlParameterSource mapParameters(final ClientRequest client, UUID externalId) {
-        return new MapSqlParameterSource()
-                .addValue("NAME", client.getName())
-                .addValue("CPF", client.getCpf())
-                .addValue("RG", client.getRg())
-                .addValue("ADDRESS", client.getAddress())
-                .addValue("ZIP_CODE", client.getZipCode())
-                .addValue("EMAIL", client.getEmail())
-                .addValue("TELEPHONE", client.getTelephone())
-                .addValue("DESCRIPTION", client.getDescription())
-                .addValue("BIRTH_DATE", client.getBirthDate())
-                .addValue("externalId", externalId.toString());
-
+    public static Customer mapToCustomer(final ClientRequest request, UUID externalId) {
+        return Customer.builder()
+                .cpf(request.getCpf())
+                .name(request.getName())
+                .rg(request.getRg())
+                .address(request.getAddress())
+                .zipCode(request.getZipCode())
+                .email(request.getEmail())
+                .telephone(request.getTelephone())
+                .description(request.getDescription())
+                .birthDate(request.getBirthDate() != null ? request.getBirthDate().toString() : null)
+                .build();
     }
 
     public static ClientDto mapToUpdateParameters(final ClientRequest client) {
@@ -62,9 +61,9 @@ public final class ClientMapper {
                 .email(customer.getEmail())
                 .telephone(customer.getTelephone())
                 .description(customer.getDescription())
-                .birthDate(customer.getBirthDate())
+                .birthDate(customer.getBirthDate() != null
+                        ? LocalDate.parse(customer.getBirthDate())
+                        : null)
                 .build();
     }
-
-
 }

@@ -31,10 +31,15 @@ public class SnsServiceImpl implements SnsService {
 
     @Override
     public void sendCustomerCreatedEvent(CustomerCreatedEvent event) {
+<<<<<<< HEAD
 
         Span span = tracer.nextSpan()
                 .name("sns.publish.customer-created")
                 .start();
+=======
+        log.info("Sending to topicArn: {}", topicArn);
+        Span span = tracer.nextSpan().name("sns.publish.customer-created").start();
+>>>>>>> d2e3057 (migrations db to dynamodb)
 
         try (Tracer.SpanInScope ws = tracer.withSpan(span)) {
 

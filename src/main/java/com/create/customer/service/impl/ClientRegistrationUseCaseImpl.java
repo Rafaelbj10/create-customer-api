@@ -31,7 +31,7 @@ public class ClientRegistrationUseCaseImpl implements ClientRegistrationUseCase 
             fillAddress(request);
 
             UUID externalId = UUID.randomUUID();
-            final Long customerId = clientRegistrationService.insertClient(request, externalId);
+            clientRegistrationService.insertClient(request, externalId);
 
             CustomerCreatedEvent event = new CustomerCreatedEvent();
             event.setCustomerId(externalId);
@@ -40,7 +40,7 @@ public class ClientRegistrationUseCaseImpl implements ClientRegistrationUseCase 
             event.setTimestamp(LocalDateTime.now());
 
             snsService.sendCustomerCreatedEvent(event);
-            log.info("CustomerCreatedEvent sent to SQS after registration for customerId: {}", customerId);
+            log.info("CustomerCreatedEvent sent to SNS after registration for customerId: {}", externalId);
 
             log.info("Client registered successfully");
         } else {
