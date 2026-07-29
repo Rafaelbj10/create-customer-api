@@ -32,11 +32,9 @@ public class SnsServiceImpl implements SnsService {
     @Override
     public void sendCustomerCreatedEvent(CustomerCreatedEvent event) {
 
-        Span span = tracer.nextSpan()
-                .name("sns.publish.customer-created")
-                .start();
         log.info("Sending to topicArn: {}", topicArn);
-        span = tracer.nextSpan().name("sns.publish.customer-created").start();
+
+        Span span = tracer.nextSpan().name("sns.publish.customer-created").start();
 
         try (Tracer.SpanInScope ws = tracer.withSpan(span)) {
 
@@ -80,5 +78,6 @@ public class SnsServiceImpl implements SnsService {
         } finally {
             span.end();
         }
+
     }
 }
